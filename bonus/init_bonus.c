@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:51:02 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/21 13:36:31 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:23:20 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	game_init(t_data *data)
 {
@@ -19,6 +19,9 @@ void	game_init(t_data *data)
 	data->move_cnt = 1;
 	data->mlx = mlx_init();
 	data->player.dir = 'r';
+	data->enemy.dir = 1;
+	data->enemy.anim = 64;
+	data->enemy.move = 0;
 }
 
 void	window(t_data *data)
@@ -37,7 +40,9 @@ int	main(int argc, char **argv)
 		read_map(argv[1], &data);
 		load_sprites(&data);
 		window(&data);
+		enemy_place(&data);
 		events_init(&data);
+		mlx_loop_hook(data.mlx, draw, &data);
 		mlx_loop(data.mlx);
 		clean(&data);
 		end_game(NULL);

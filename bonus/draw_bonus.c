@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:50:29 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/21 14:21:09 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:37:14 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	walls(t_data *data)
 {
@@ -73,6 +73,9 @@ static void	collectable(t_data *data)
 			if (data->map.map_arr[r][c] == 'C')
 				mlx_put_image_to_window(data->mlx, data->win,
 					data->sprite.collect, c * SPRITE, r * SPRITE);
+			if (data->map.map_arr[r][c] == 'F')
+				mlx_put_image_to_window(data->mlx, data->win,
+					data->enemy.current, c * SPRITE, r * SPRITE);
 			c++;
 		}
 		r++;
@@ -110,9 +113,22 @@ static void	player(t_data *data)
 
 int	draw(t_data *data)
 {
+	char *str;
+
 	walls(data);
 	game_exit(data);
 	collectable(data);
 	player(data);
+	enemy(data);
+	if (data->enemy.move == 196)
+	{
+		data->enemy.move = 0;
+		draw_enemy(data);
+	}
+	data->enemy.move++;
+	str = ft_itoa(data->move_cnt);
+	mlx_string_put(data->mlx, data->win, data->player.c * SPRITE,
+		data->player.r * SPRITE, 0xffffff, str);
+	free(str);
 	return (0);
 }

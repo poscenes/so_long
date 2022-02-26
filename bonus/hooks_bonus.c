@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   hooks_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:54:42 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/18 14:05:39 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:24:45 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static int	check_action(t_data *data, int r, int c)
 {
@@ -22,6 +22,8 @@ static int	check_action(t_data *data, int r, int c)
 			data->coll_cnt--;
 			data->map.map_arr[r][c] = '0';
 		}
+		if (data->map.map_arr[r][c] == 'F')
+			enemy_lose(data);
 		if (data->map.map_arr[r][c] == 'E')
 		{
 			if (data->coll_cnt == 0)
