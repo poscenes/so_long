@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 10:53:00 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/25 13:55:09 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:23:55 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static int	is_valid(char c, t_data *data, int r, int col)
 		data->coll_cnt++;
 		return (1);
 	}
+	else if (c == 'F')
+		return (1);
 	else if (c == 'E')
 	{
 		data->exit_cnt++;
@@ -95,12 +97,12 @@ int	validation_map(t_data *data)
 	int		c;
 
 	r = 0;
-	while (data->map.map_arr[r])
+	while (r < data->map.rows - 1)
 	{
 		if (!check_map_length(data->map.map_arr[r], data))
 			return (0);
 		c = 0;
-		while (data->map.map_arr[r][c])
+		while (c < data->map.cols)
 		{
 			if (!is_valid(data->map.map_arr[r][c], data, r, c))
 				return (0);

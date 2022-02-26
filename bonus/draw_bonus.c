@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:50:29 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/25 14:37:14 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:27:29 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	collectable(t_data *data)
 					data->sprite.collect, c * SPRITE, r * SPRITE);
 			if (data->map.map_arr[r][c] == 'F')
 				mlx_put_image_to_window(data->mlx, data->win,
-					data->enemy.current, c * SPRITE, r * SPRITE);
+					data->sprite.current, c * SPRITE, r * SPRITE);
 			c++;
 		}
 		r++;
@@ -113,19 +113,19 @@ static void	player(t_data *data)
 
 int	draw(t_data *data)
 {
-	char *str;
+	char	*str;
 
 	walls(data);
 	game_exit(data);
 	collectable(data);
 	player(data);
 	enemy(data);
-	if (data->enemy.move == 196)
+	if (data->move_enemy == 32)
 	{
-		data->enemy.move = 0;
-		draw_enemy(data);
+		data->move_enemy = 0;
+		move_enemy(data);
 	}
-	data->enemy.move++;
+	data->move_enemy++;
 	str = ft_itoa(data->move_cnt);
 	mlx_string_put(data->mlx, data->win, data->player.c * SPRITE,
 		data->player.r * SPRITE, 0xffffff, str);

@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:43:27 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/25 15:57:00 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:18:10 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,70 +16,63 @@ void	enemy(t_data *data)
 {
 	static int	basic_count;
 
-	if (basic_count == data->enemy.anim)
-		data->enemy.current = data->enemy.img_0;
-	else if (basic_count == data->enemy.anim * 2)
-		data->enemy.current = data->enemy.img_1;
-	else if (basic_count == data->enemy.anim * 3)
-		data->enemy.current = data->enemy.img_2;
-	else if (basic_count > data->enemy.anim * 4)
+	if (basic_count == data->sprite.enemy_anim)
+		data->sprite.current = data->sprite.img_0;
+	else if (basic_count == data->sprite.enemy_anim * 2)
+		data->sprite.current = data->sprite.img_1;
+	else if (basic_count == data->sprite.enemy_anim * 3)
+		data->sprite.current = data->sprite.img_2;
+	else if (basic_count > data->sprite.enemy_anim * 4)
 	{
-		data->enemy.current = data->enemy.img_3;
+		data->sprite.current = data->sprite.img_3;
 		basic_count = 0;
 	}
 	basic_count++;
 }
 
-static void	left(t_data *data, int r, int c)
+static void	left(t_enemy *enem, t_data *data)
 {
-	if (data->map.map_arr[r][c - 1] == '0')
+	if (data->map.map_arr[enem->r][enem->c - 1] == '0')
 	{
-		data->map.map_arr[r][c] = '0';
-		data->map.map_arr[r][c - 1] = 'F';
+		data->map.map_arr[enem->r][enem->c] = '0';
+		data->map.map_arr[enem->r][enem->c - 1] = 'F';
 	}
-	if (data->map.map_arr[r][c - 1] == '1' || data->map.map_arr[r][c - 1] == 'C')
-		data->enemy.dir = 0;
+	else if (data->map.map_arr[enem->r][enem->c - 1] == '1'
+			|| data->map.map_arr[enem->r][enem->c - 1] == 'C')
+		enem->dir = 0;
+	(enem->c)--;
 }
 
-static void	right(t_data *data, int r, int c)
+static void	right(t_enemy *enem, t_data *data)
 {
-	if (data->map.map_arr[r][c + 1] == '0')
+	if (data->map.map_arr[enem->r][enem->c + 1] == '0')
 	{
-		data->map.map_arr[r][c] = '0';
-		data->map.map_arr[r][c + 1] = 'F';
+		data->map.map_arr[enem->r][enem->c] = '0';
+		data->map.map_arr[enem->r][enem->c + 1] = 'F';
 	}
-	if (data->map.map_arr[r][c + 1] == '1' || data->map.map_arr[r][c + 1] == 'C')
-		data->enemy.dir = 1;
+	else if (data->map.map_arr[enem->r][enem->c + 1] == '1'
+			|| data->map.map_arr[enem->r][enem->c + 1] == 'C')
+		enem->dir = 1;
+	(enem->c)++;
 }
 
-static void	move_enemy(t_data *data, int r, int c)
+void	move_enemy(t_data *data)
 {
-	if (data->enemy.dir == 0)
-		right(data, r, c);
-	if (data->enemy.dir == 1)
-		left(data, r, c);
-}
+	t_enemy	*tmp;
 
-int	draw_enemy(t_data *data)
-{
-	int	r;
-	int	c;
-
-	r = 0;
-	while (r < data->map.rows - 1)
+	tmp = data->enemy;
+	while (tmp)
 	{
-		c = 0;
-		while (c < data->map.cols)
+		if (tmp->dir == 0)
+			right(tmp, data);
+		else
+			left(tmp, data);
+		if (tmp->r == data->player.r && tmp->c == data->player.c)
 		{
-			if (data->map.map_arr[r][c] == 'F')
-			{
-				move_enemy(data, r, c);
-				r++;
-			}
-			c++;
+			ft_printf("YOU ARE DEFEATED! Score: %d\n", data->score);
+			clean(data);
+			end_game(NULL);
 		}
-		r++;
+		tmp = tmp->next;
 	}
-	data->enemy.move++;
-	return (0);
 }

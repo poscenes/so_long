@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 13:12:37 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/23 12:19:23 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:20:21 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ static void	load_player(t_data *data, int w, int h)
 
 void	enemy_sprite(t_data *data, int w, int h)
 {
-	data->enemy.img_0 = mlx_xpm_file_to_image(data->mlx,
+	data->sprite.img_0 = mlx_xpm_file_to_image(data->mlx,
 			"../images/enemy0.xpm", &w, &h);
-	data->enemy.img_1 = mlx_xpm_file_to_image(data->mlx,
+	data->sprite.img_1 = mlx_xpm_file_to_image(data->mlx,
 			"../images/enemy1.xpm", &w, &h);
-	data->enemy.img_2 = mlx_xpm_file_to_image(data->mlx,
+	data->sprite.img_2 = mlx_xpm_file_to_image(data->mlx,
 			"../images/enemy2.xpm", &w, &h);
-	data->enemy.img_3 = mlx_xpm_file_to_image(data->mlx,
+	data->sprite.img_3 = mlx_xpm_file_to_image(data->mlx,
 			"../images/enemy3.xpm", &w, &h);
-	data->enemy.current = data->enemy.img_0;
-	if (!data->enemy.img_0 || !data->enemy.img_1 || !data->enemy.img_2
-		|| !data->enemy.img_3)
+	data->sprite.current = data->sprite.img_0;
+	if (!data->sprite.img_0 || !data->sprite.img_1 || !data->sprite.img_2
+		|| !data->sprite.img_3)
 	{
 		clean(data);
 		end_game("Enemy sprite wasn't successfully loaded, check images");

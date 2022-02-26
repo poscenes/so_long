@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 10:39:58 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/25 14:37:31 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:11:07 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define SO_LONG_BONUS_H
 
 # define SPRITE 64
+
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include "../gnl/get_next_line.h"
+# include <mlx.h>
 
 typedef struct s_map
 {
@@ -29,6 +35,12 @@ typedef struct s_sprite
 	void	*collect;
 	void	*exit_open;
 	void	*exit_closed;
+	void	*current;
+	void	*img_0;
+	void	*img_1;
+	void	*img_2;
+	void	*img_3;
+	int		enemy_anim;
 }	t_sprite;
 
 typedef struct s_player
@@ -45,17 +57,12 @@ typedef struct s_enemy
 	int				r;
 	int				c;
 	int				dir;
-	int				anim;
-	int				move;
-	void			*current;
-	void			*img_0;
-	void			*img_1;
-	void			*img_2;
-	void			*img_3;
+	struct s_enemy	*next;
 }	t_enemy;
 
 typedef struct s_data
 {
+	int			move_enemy;
 	int			move_cnt;
 	int			coll_cnt;
 	int			score;
@@ -64,16 +71,10 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	t_map		map;
-	t_player 	player;
+	t_player	player;
 	t_sprite	sprite;
-	t_enemy		enemy;
+	t_enemy		*enemy;
 }	t_data;
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include "../minilibx-linux/mlx.h"
-# include "../gnl/get_next_line.h"
 
 int		ft_printf(char *format, ...);
 void	check_map_ext(char *path, char *ber);
@@ -88,10 +89,11 @@ int		draw(t_data *data);
 char	*ft_itoa(int n);
 int		ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strrchr(const char *s, int c);
-int		enemy_place(t_data *data);
 int		draw_enemy(t_data *data);
 void	enemy_lose(t_data *data);
-void	move(t_data *data);
+void	move_enemy(t_data *data);
 void	enemy(t_data *data);
+void	add_enem(t_data *data, int r, int c);
+int		enemy_place(t_data *data);
 
 #endif

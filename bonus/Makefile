@@ -17,28 +17,23 @@ SRC = check_map_bonus.c init_bonus.c hooks_bonus.c read_map_bonus.c \
 
 OBJ = $(SRC:%.c=%.o)
 
-all: $(NAME) $(PRINTF) $(MLX)
-
-$(MLX):
-	make -C ../minilibx-linux
+all: $(NAME) $(PRINTF)
 
 $(PRINTF):
 	make -C ../printf
 
-$(NAME) : $(OBJ) $(HEADER) $(PRINTF) $(MLX)
-	$(CC) $(OBJ) -L../printf -lftprintf -L../minilibx-linux -lmlx -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME) : $(OBJ) $(HEADER) $(PRINTF)
+	$(CC) $(OBJ) -L../printf -lftprintf -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o : %.c $(HEADER)
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -Imlx -c $< -o $@
 
 clean:
 	rm -rf $(OBJ)
 	make -C ../printf clean
-	make -C ../minilibx-linux clean
 
 fclean: clean
 	rm -rf $(NAME)
-	make -C ../minilibx-linux clean
 	make -C ../printf fclean
 
 re: fclean all

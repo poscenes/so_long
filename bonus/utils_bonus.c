@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 21:32:19 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/21 18:40:05 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 17:18:32 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,18 @@ int	end_game(char *err)
 
 void	clean(t_data *data)
 {
-	int	i;
+	int		i;
+	t_enemy	*tmp;
 
 	i = 0;
 	while (data->map.map_arr[i])
 		free(data->map.map_arr[i++]);
+	while (data->enemy)
+	{
+		tmp = data->enemy;
+		free(tmp);
+		data->enemy = data->enemy->next;
+	}
 	free(data->map.map_arr);
 }
 

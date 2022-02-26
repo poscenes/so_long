@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:54:42 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/23 17:24:45 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/26 13:26:53 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	check_action(t_data *data, int r, int c)
 			{
 				ft_printf("Congratulations! You won this game! SCORE: %d\n",
 					data->score);
-				mlx_loop_end(data->mlx);
+				end_game(NULL);
+				//mlx_loop_end(data->mlx);
 				return (1);
 			}
 		}
@@ -56,22 +57,22 @@ static void	player_dir(char c, t_data *data)
 
 static int	key_hook(int keycode, t_data *data)
 {
-	if (keycode == 65307)
+	if (keycode == 53)
 	{
 		mlx_destroy_window(data->mlx, data->win);
 		clean(data);
 		end_game(NULL);
 	}
-	if (keycode == 119)
+	if (keycode == 13)
 		if (check_action(data, data->player.r - 1, data->player.c))
 			data->player.r -= 1;
-	if (keycode == 97)
+	if (keycode == 0)
 		if (check_action(data, data->player.r, data->player.c - 1))
 			player_dir('l', data);
-	if (keycode == 115)
+	if (keycode == 1)
 		if (check_action(data, data->player.r + 1, data->player.c))
 			data->player.r += 1;
-	if (keycode == 100)
+	if (keycode == 2)
 		if (check_action(data, data->player.r, data->player.c + 1))
 			player_dir('r', data);
 	mlx_clear_window(data->mlx, data->win);
