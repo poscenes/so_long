@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:51:02 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/26 16:45:38 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:54:17 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	game_init(t_data *data)
 	data->move_cnt = 1;
 	data->mlx = mlx_init();
 	data->player.dir = 'r';
-	data->sprite.enemy_anim = 8;
+	data->sprite.enemy_anim = 32;
 	data->move_enemy = 0;
+	data->enemy = NULL;
 }
 
 void	window(t_data *data)
@@ -44,6 +45,7 @@ int	main(int argc, char **argv)
 		mlx_loop_hook(data.mlx, draw, &data);
 		mlx_loop(data.mlx);
 		clean(&data);
+		clean_en_lst(&data);
 		end_game(NULL);
 	}
 	else

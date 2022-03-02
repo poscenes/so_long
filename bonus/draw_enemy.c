@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:43:27 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/26 17:18:10 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:52:40 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	move_enemy(t_data *data)
 		if (tmp->r == data->player.r && tmp->c == data->player.c)
 		{
 			ft_printf("YOU ARE DEFEATED! Score: %d\n", data->score);
+			clean_en_lst(data);
 			clean(data);
 			end_game(NULL);
 		}

@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 12:54:42 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/18 14:05:39 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/27 11:52:44 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_action(t_data *data, int r, int c)
 				return (1);
 			}
 		}
-		data->move_cnt++;
+		ft_printf("Moves: %d\n", data->move_cnt++);
 		return (1);
 	}
 	return (0);

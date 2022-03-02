@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 10:53:00 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/26 17:23:55 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/27 11:44:05 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	check_map_ext(char *path, char *ber)
 	int		j;
 
 	p = ft_strrchr(path, '.');
+	if (!p)
+		end_game("Incorrect extension, must be '.ber'!");
 	i = 0;
 	while (p[i])
 	{

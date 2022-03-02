@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 10:39:58 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/26 17:11:07 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/02/27 12:06:07 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "../gnl/get_next_line.h"
-# include <mlx.h>
+# include "../minilibx-linux/mlx.h"
 
 typedef struct s_map
 {
@@ -95,5 +95,6 @@ void	move_enemy(t_data *data);
 void	enemy(t_data *data);
 void	add_enem(t_data *data, int r, int c);
 int		enemy_place(t_data *data);
+void	clean_en_lst(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 11:50:29 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/26 17:27:29 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:51:03 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	draw(t_data *data)
 	collectable(data);
 	player(data);
 	enemy(data);
-	if (data->move_enemy == 32)
+	if (data->move_enemy == 128)
 	{
 		data->move_enemy = 0;
 		move_enemy(data);

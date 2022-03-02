@@ -6,7 +6,7 @@
 /*   By: poscenes <poscenes@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/13 21:32:19 by poscenes          #+#    #+#             */
-/*   Updated: 2022/02/26 17:18:32 by poscenes         ###   ########.fr       */
+/*   Updated: 2022/03/02 13:09:10 by poscenes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,23 @@ int	end_game(char *err)
 void	clean(t_data *data)
 {
 	int		i;
-	t_enemy	*tmp;
 
 	i = 0;
 	while (data->map.map_arr[i])
 		free(data->map.map_arr[i++]);
+	free(data->map.map_arr);
+}
+
+void	clean_en_lst(t_data *data)
+{
+	t_enemy	*tmp;
+
 	while (data->enemy)
 	{
-		tmp = data->enemy;
-		free(tmp);
-		data->enemy = data->enemy->next;
+		tmp = data->enemy->next;
+		free(data->enemy);
+		data->enemy = tmp;
 	}
-	free(data->map.map_arr);
 }
 
 int	ft_strnstr(const char *haystack, const char *needle, size_t len)
